@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         btnstartstop.setOnClickListener {
             if (job == null || job?.isCancelled == true) {
                 startCounter()
-            }else {
+            } else {
                 stopCounter()
             }
         }
