@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             text_view.text = ""
         }
 
-/*
+
         //val btn1 = findViewById(R.id.btn1) as Button
 
         btn1.setOnClickListener {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             }
             Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
         }
-*/
+
 
 
     }
