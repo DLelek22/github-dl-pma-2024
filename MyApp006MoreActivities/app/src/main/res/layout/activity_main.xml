@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:autofillHints="text"
+        app:title="Useless app (1st page)"
+        app:titleTextColor="@color/white"
+        android:elevation="4dp"
+        android:backgroundTint="@color/black"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <EditText
+            android:id="@+id/etDatafirst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Data"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/btnSendfirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send to\nsecond page"
+            android:textSize="20dp"
+            android:layout_marginHorizontal="80dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
