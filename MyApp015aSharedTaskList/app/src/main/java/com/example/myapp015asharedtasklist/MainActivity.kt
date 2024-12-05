@@ -70,17 +70,17 @@ class MainActivity : AppCompatActivity() {
 //        // Tady později napojíme Firestore update
 //        println("Task updated: ${task.name}, completed: ${task.isCompleted}")
 //    }
-private fun updateTask(task: Task) {
-    // Update task in Firestore
-    firestore.collection("tasks").document(task.id!!)
-        .set(task) // Replace the entire task document
-        .addOnSuccessListener {
-            println("Task updated in Firestore: ${task.name}, completed: ${task.isCompleted}")
-        }
-        .addOnFailureListener { e ->
-            println("Error updating task in Firestore: ${e.message}")
-        }
-}
+    private fun updateTask(task: Task) {
+        // Update task in Firestore
+        firestore.collection("tasks").document(task.id!!)
+            .set(task) // Replace the entire task document
+            .addOnSuccessListener {
+                println("Task updated in Firestore: ${task.name}, completed: ${task.isCompleted}")
+            }
+            .addOnFailureListener { e ->
+                println("Error updating task in Firestore: ${e.message}")
+            }
+    }
 
 
     private fun showAddTaskDialog() {
@@ -110,6 +110,7 @@ private fun updateTask(task: Task) {
     }
 
     private fun addTask(name: String) {
+
         val newTask = Task(
             id = firestore.collection("tasks").document().id, // Vygenerujeme ID
             name = name,
@@ -121,7 +122,7 @@ private fun updateTask(task: Task) {
         firestore.collection("tasks").document(newTask.id).set(newTask)
             .addOnSuccessListener {
                 tasks.add(newTask)
-                taskAdapter.notifyItemInserted(tasks.size - 1)
+                //taskAdapter.notifyItemInserted(tasks.size - 1)
                 println("Task added to Firestore: $name")
             }
             .addOnFailureListener { e ->
