@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@color/background_color">
+
+    <!-- Nadpis aplikace -->
+<!--    <TextView-->
+<!--        android:id="@+id/tv_title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Odpočítávání"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:textColor="@color/primary_text_color" />-->
+
+    <!-- Text pro Vánoční odpočet -->
+    <TextView
+        android:id="@+id/tv_christmas_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do Vánoc zbývá:"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/secondary_text_color" />
+
+    <!-- Vánoční odpočet -->
+    <TextView
+        android:id="@+id/tv_christmas_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00 dní, 00 hodin, 00 minut"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/countdown_text_color" />
+
+    <!-- Text pro Silvestrovský odpočet -->
+    <TextView
+        android:id="@+id/tv_new_year_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do Silvestra zbývá:"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/secondary_text_color" />
+
+    <!-- Silvestrovský odpočet -->
+    <TextView
+        android:id="@+id/tv_new_year_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00 dní, 00 hodin, 00 minut"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/countdown_text_color" />
+
+    <!-- Tlačítko pro obnovení odpočtů -->
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Obnovit odpočty"
+        android:textSize="16sp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:backgroundTint="@color/button_background_color"
+        android:textColor="@color/button_text_color" />
+
+</LinearLayout>

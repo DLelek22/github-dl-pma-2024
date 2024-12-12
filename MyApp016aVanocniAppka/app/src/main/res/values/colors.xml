@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#228B22</color>
+
+    <color name="background_color">#D6EAF8</color>
+
+    <!-- Primární text -->
+    <color name="primary_text_color">#FFFFFF</color>
+
+    <!-- Sekundární text -->
+    <color name="secondary_text_color">#228B22</color>
+
+    <!-- Text odpočtu -->
+    <color name="countdown_text_color">#C0392B</color>
+
+    <!-- Tlačítko - pozadí -->
+    <color name="button_background_color">#28B463</color>
+
+    <!-- Tlačítko - text -->
+    <color name="button_text_color">#FFFFFF</color>
+</resources>

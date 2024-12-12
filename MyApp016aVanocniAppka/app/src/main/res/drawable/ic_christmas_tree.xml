@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="300dp"
+    android:viewportWidth="100"
+    android:viewportHeight="150">
+
+    <!-- Tree trunk -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M40,120 H60 V150 H40 Z" />
+
+    <!-- Bottom triangle (biggest layer) -->
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M10,120 L50,50 L90,120 Z" />
+
+    <!-- Middle triangle -->
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M20,90 L50,30 L80,90 Z" />
+
+    <!-- Top triangle -->
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M30,60 L50,10 L70,60 Z" />
+
+    <!-- Star -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M50,10 L52,15 L57,15 L53,18 L55,23 L50,20 L45,23 L47,18 L43,15 L48,15 Z" />
+
+    <!-- Decorations -->
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M30,110 A3,3 0 1,0 33,110 A3,3 0 1,0 30,110" />
+    <path
+        android:fillColor="#0000FF"
+        android:pathData="M70,110 A3,3 0 1,0 73,110 A3,3 0 1,0 70,110" />
+    <path
+        android:fillColor="#FFFF00"
+        android:pathData="M50,80 A3,3 0 1,0 53,80 A3,3 0 1,0 50,80" />
+    <path
+        android:fillColor="#FF00FF"
+        android:pathData="M40,50 A3,3 0 1,0 43,50 A3,3 0 1,0 40,50" />
+    <path
+        android:fillColor="#00FFFF"
+        android:pathData="M60,50 A3,3 0 1,0 63,50 A3,3 0 1,0 60,50" />
+
+</vector>
