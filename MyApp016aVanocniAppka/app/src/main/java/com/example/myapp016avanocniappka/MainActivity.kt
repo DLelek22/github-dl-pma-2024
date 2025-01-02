@@ -30,6 +30,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval: Long = 1000 // 1 sekunda
 
@@ -48,9 +49,9 @@ class MainActivity : AppCompatActivity() {
         startCountdown()
 
         // Nastavení tlačítka pro obnovení
-        binding.btnRefresh.setOnClickListener {
-            startCountdown()
-        }
+//        binding.btnRefresh.setOnClickListener {
+//            startCountdown()
+//        }
     }
 
     private fun startCountdown() {
@@ -59,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                 updateCountdowns()
                 handler.postDelayed(this, updateInterval)
             }
-        })
+        }
+        )
     }
 
     private fun updateCountdowns() {
