@@ -1,5 +1,7 @@
-package com.example.myapp014amynotehub
+package com.example.myapp017asemestralniprojekt
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,12 +10,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.myapp014amynotehub.databinding.ActivityMainBinding
+import com.example.myapp017asemestralniprojekt.databinding.ActivityMainBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -33,7 +37,22 @@ class MainActivity : AppCompatActivity() {
         database = NoteHubDatabaseInstance.getDatabase(this)
 
         insertDefaultCategories()
-        insertDefaultTags()
+        //insertDefaultTags()
+
+//        val db = Room.databaseBuilder(
+//            this,
+//            NoteHubDatabase::class.java,
+//            "notehub_database"
+//        ).build()
+
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setBackgroundDrawable(ColorDrawable(Color.parseColor("#6200EE")))
+        }
+
+        //supportActionBar?.title = "Your Preferred Title"
+
 
         // Nastavení uživatelského rozhraní (filtry, řazení atd.)
         setupUI()
@@ -53,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabAddNote.setOnClickListener {
             showAddNoteDialog()
+
         }
     }
 
@@ -61,12 +81,15 @@ class MainActivity : AppCompatActivity() {
         val titleEditText = dialogView.findViewById<EditText>(R.id.editTextTitle)
         val contentEditText = dialogView.findViewById<EditText>(R.id.editTextContent)
         val spinnerCategory = dialogView.findViewById<Spinner>(R.id.spinnerCategory)
+        val recipeEditText = dialogView.findViewById<EditText>(R.id.editTextRecipe)
+
 
         // Načtení kategorií z databáze a jejich zobrazení ve Spinneru
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories().first()  // Načteme kategorie
             val categoryNames = categories.map { it.name }  // Převedeme na seznam názvů kategorií
-            val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
+            val adapter =
+                ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerCategory.adapter = adapter
         }
@@ -77,13 +100,15 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Přidat") { _, _ ->
                 val title = titleEditText.text.toString()
                 val content = contentEditText.text.toString()
-                val selectedCategory = spinnerCategory.selectedItem.toString()  // Získáme vybranou kategorii
+                val recipe = recipeEditText.text.toString()
+                val selectedCategory =
+                    spinnerCategory.selectedItem.toString()  // Získáme vybranou kategorii
 
                 // Najdeme ID vybrané kategorie
                 lifecycleScope.launch {
                     val category = database.categoryDao().getCategoryByName(selectedCategory)
                     if (category != null) {
-                        addNoteToDatabase(title, content, category.id)
+                        addNoteToDatabase(title, content, category.id, recipe)
                     }
                 }
             }
@@ -93,9 +118,9 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun addNoteToDatabase(title: String, content: String, categoryId: Int) {
+    private fun addNoteToDatabase(title: String, content: String, categoryId: Int, recipe: String) {
         lifecycleScope.launch {
-            val newNote = Note(title = title, content = content, categoryId = categoryId)
+            val newNote = Note(title = title, content = content, categoryId = categoryId, recipe = recipe)
             database.noteDao().insert(newNote)  // Vloží poznámku do databáze
             loadNotes()  // Aktualizuje seznam poznámek
         }
@@ -116,7 +141,9 @@ class MainActivity : AppCompatActivity() {
 
             // Aplikujeme řazení podle názvu
             if (isNameAscending) {
-                notes = notes.sortedWith(compareBy { it.title?.lowercase() ?: "" }) // Ignorujeme velká/malá písmena
+                notes = notes.sortedWith(compareBy {
+                    it.title?.lowercase() ?: ""
+                }) // Ignorujeme velká/malá písmena
             } else {
                 notes = notes.sortedWith(compareByDescending { it.title?.lowercase() ?: "" })
             }
@@ -126,6 +153,7 @@ class MainActivity : AppCompatActivity() {
                 notes = notes,
                 onDeleteClick = { note -> deleteNote(note) },
                 onEditClick = { note -> editNote(note) },
+                onShowClick = {note-> showNote(note)},
                 lifecycleScope = lifecycleScope,
                 database = database
             )
@@ -140,12 +168,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    private fun showNote (note: Note) {
+//
+//        lifecycleScope.launch {
+//            loadNotes()  // Aktualizace seznamu poznámek
+//        }
+//    }
+
+    private fun showNote(note: Note) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_show_note, null)
+        //val titleTextView = dialogView.findViewById<TextView>(R.id.tvTitle)
+        val contentTextView = dialogView.findViewById<TextView>(R.id.tvIngredience)
+        val recipeTextView = dialogView.findViewById<TextView>(R.id.tvRecept)
+        val categoryTextView = dialogView.findViewById<TextView>(R.id.spinnerCategory)
+    // Fill the TextViews with note data
+        //titleTextView.text = note.title
+        val ingredience = note.content.replace(",", "\n")
+        contentTextView.text = ingredience
+
+        recipeTextView.text = note.recipe
+
+        lifecycleScope.launch {
+            val category = note.categoryId?.let { database.categoryDao().getCategoryById(it) }
+            categoryTextView.text = category?.name ?: "Unknown Category"
+        }
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("${note.title}")
+            .setView(dialogView)
+            .setPositiveButton("OK", null)
+            .create()
+        dialog.show()
+    }
+
     private fun insertSampleNotes() {
         lifecycleScope.launch {
             val sampleNotes = listOf(
-                Note(title = "Vzorek 1", content = "Obsah první testovací poznámky"),
-                Note(title = "Vzorek 2", content = "Obsah druhé testovací poznámky"),
-                Note(title = "Vzorek 3", content = "Obsah třetí testovací poznámky")
+                Note(title = "Vzorek 1", content = "Obsah první testovací poznámky", recipe = "blabla"),
+                Note(title = "Vzorek 2", content = "Obsah druhé testovací poznámky", recipe = "blabla"),
+                Note(title = "Vzorek 3", content = "Obsah třetí testovací poznámky", recipe = "blabla")
             )
             sampleNotes.forEach { database.noteDao().insert(it) }
         }
@@ -156,16 +217,20 @@ class MainActivity : AppCompatActivity() {
         val titleEditText = dialogView.findViewById<EditText>(R.id.editTextTitle)
         val contentEditText = dialogView.findViewById<EditText>(R.id.editTextContent)
         val spinnerCategory = dialogView.findViewById<Spinner>(R.id.spinnerCategory)
+        val recipeEditText = dialogView.findViewById<EditText>(R.id.editTextRecipe)
 
 
         // Předvyplnění stávajících dat poznámky
         titleEditText.setText(note.title)
         contentEditText.setText(note.content)
+        recipeEditText.setText(note.recipe)
+
 
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories().first()
             val categoryNames = categories.map { it.name }
-            val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
+            val adapter =
+                ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerCategory.adapter = adapter
 
@@ -183,7 +248,8 @@ class MainActivity : AppCompatActivity() {
                 val selectedCategoryName = spinnerCategory.selectedItem.toString()
 
                 lifecycleScope.launch {
-                    val selectedCategory = database.categoryDao().getCategoryByName(selectedCategoryName)
+                    val selectedCategory =
+                        database.categoryDao().getCategoryByName(selectedCategoryName)
                     if (selectedCategory != null) {
                         val updatedNote = note.copy(
                             title = updatedTitle,
@@ -204,9 +270,12 @@ class MainActivity : AppCompatActivity() {
     private fun insertDefaultCategories() {
         lifecycleScope.launch {
             val defaultCategories = listOf(
-                "Osobní",
-                "Práce",
-                "Nápady"
+                "Předkrmy",
+                "Polévky",
+                "Hlavní chody",
+                "Saláty",
+                "Dezerty",
+                "Pomazánky"
             )
 
             for (categoryName in defaultCategories) {
@@ -221,7 +290,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun insertDefaultTags() {
         lifecycleScope.launch {
-            val existingTags = database.tagDao().getAllTags().first()  // Použití first() pro získání seznamu
+            val existingTags =
+                database.tagDao().getAllTags().first()  // Použití first() pro získání seznamu
             if (existingTags.isEmpty()) {
                 val defaultTags = listOf(
                     Tag(name = "Důležité"),
@@ -245,21 +315,28 @@ class MainActivity : AppCompatActivity() {
             val categoryNames = categories.map { it.name }.toMutableList()
             categoryNames.add(0, "Vše") // Přidáme možnost "Vše"
 
-            val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
+            val adapter =
+                ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerFilterCategory.adapter = adapter
 
             // Nastavení OnItemSelectedListener
-            binding.spinnerFilterCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    currentCategory = categoryNames[position]
-                    loadNotes() // Načte poznámky podle vybrané kategorie
-                }
+            binding.spinnerFilterCategory.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        currentCategory = categoryNames[position]
+                        loadNotes() // Načte poznámky podle vybrané kategorie
+                    }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Není třeba nic dělat, když není nic vybráno
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        // Není třeba nic dělat, když není nic vybráno
+                    }
                 }
-            }
         }
     }
 
@@ -269,5 +346,5 @@ class MainActivity : AppCompatActivity() {
             loadNotes()
         }
     }
-
 }
+

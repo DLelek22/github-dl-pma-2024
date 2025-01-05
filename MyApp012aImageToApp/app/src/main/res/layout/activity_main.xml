@@ -5,15 +5,42 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    tools:context=".MainActivity"
+    android:padding="20dp">
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/cardview_dark_background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btnTakeImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Take Image"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonAddText" />
 
+    <Button
+        android:id="@+id/buttonAddText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add Text"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintStart_toEndOf="@id/btnTakeImage"
+        app:layout_constraintEnd_toStartOf="@id/buttonSaveImage" />
+
+    <Button
+        android:id="@+id/buttonSaveImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Save Image"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintStart_toEndOf="@id/buttonAddText"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

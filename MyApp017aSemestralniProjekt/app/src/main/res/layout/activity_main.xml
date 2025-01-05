@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/top_half_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/ActionBar"
+        android:layout_alignParentTop="true">
+
+        <!-- Spinner pro filtrování podle kategorie -->
+        <Spinner
+            android:id="@+id/spinnerFilterCategory"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/custom_spinner_background"
+            android:popupBackground="@color/white"
+            android:textColor="@color/black"
+            android:layout_toStartOf="@+id/btnSortByName"/>
+
+        <!-- Tlačítko pro řazení podle názvu -->
+        <Button
+            android:id="@+id/btnSortByName"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            android:backgroundTint="@color/primaryColor"
+            android:layout_marginTop="10dp"
+            android:textSize="18dp"
+            android:text="Řadit podle názvu" />
+
+    </RelativeLayout>
+
+
+    
+<!--   <RelativeLayout-->
+<!--       android:id="@+id/bottom_part"-->
+<!--       android:layout_width="match_parent"-->
+<!--       android:layout_height="100dp"-->
+<!--       android:layout_weight="1"-->
+<!--       android:background="@color/background"-->
+<!--       android:layout_below="@id/top_half_layout"-->
+<!--       android:layout_alignParentBottom="true">-->
+
+<!--       &lt;!&ndash; RecyclerView pro seznam poznámek &ndash;&gt;-->
+<!--       <androidx.recyclerview.widget.RecyclerView-->
+<!--           android:id="@+id/recyclerView"-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="match_parent"-->
+<!--           android:padding="16dp" />-->
+
+<!--       &lt;!&ndash; FAB pro přidání nové poznámky &ndash;&gt;-->
+<!--       <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--           android:id="@+id/fabAddNote"-->
+<!--           android:layout_width="wrap_content"-->
+<!--           android:layout_height="wrap_content"-->
+<!--           android:layout_alignParentBottom="true"-->
+<!--           android:layout_alignParentEnd="true"-->
+<!--           android:layout_margin="16dp"-->
+<!--           android:contentDescription="Přidat poznámku"-->
+<!--           android:src="@drawable/baseline_add_box_24"-->
+<!--           app:backgroundTint="@color/primaryColor"-->
+<!--           app:tint="@color/white" />-->
+
+<!--   </RelativeLayout>-->
+
+    <!-- Replace RelativeLayout with NestedScrollView -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_part"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_half_layout"
+        android:layout_marginBottom="56dp"
+        android:fillViewport="true"
+        android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- RecyclerView pro seznam poznámek -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp" />
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button remains outside the scroll -->
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+android:id="@+id/fabAddNote"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentBottom="true"
+android:layout_alignParentEnd="true"
+android:layout_margin="16dp"
+android:contentDescription="Přidat poznámku"
+android:src="@drawable/baseline_add_box_24"
+app:backgroundTint="@color/primaryColor"
+app:tint="@color/white" />
+</RelativeLayout>

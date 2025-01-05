@@ -7,12 +7,6 @@
     <color name="cardBackgroundColor">#FFFFFF</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#757575</color>
-
-
-        <color name="preferredColor">#FF5722</color> <!-- Example color -->
-        <color name="preferredColorDark">#E64A19</color> <!-- Example dark color -->
-        <color name="accentColor">#FFC107</color> <!-- Example accent color -->
-        <color name="textColorPrimary">#FFFFFF</color> <!-- White text color -->
-
-
+    <color name="background">#EEEBFF</color>
+    <color name="ActionBar">#242424</color>
 </resources>
