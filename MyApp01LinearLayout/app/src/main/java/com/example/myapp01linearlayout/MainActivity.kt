@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             //zapsání do textview
             val formatedText = "Jmenuji se $name $surname, je mi $age let a mým bydlištěm je $place"
             text_view.text = formatedText
+            Toast.makeText(this@MainActivity, "Zapsáno do TextView", Toast.LENGTH_SHORT).show()
         }
 
         //Nastavení tlačítka Smazat (=btn2)
@@ -50,16 +51,16 @@ class MainActivity : AppCompatActivity() {
 
         //val btn1 = findViewById(R.id.btn1) as Button
 
-        btn1.setOnClickListener {
-            // your code to perform when the user clicks on the button
-            // text_view.arg.val.
-            val text: TextView = findViewById(R.id.text_view) as TextView
-            btn1.setOnClickListener {
-                //text.setText(getText(etName))
-
-            }
-            Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
-        }
+//        btn1.setOnClickListener {
+//            // your code to perform when the user clicks on the button
+//            // text_view.arg.val.
+//            val text: TextView = findViewById(R.id.text_view) as TextView
+//            btn1.setOnClickListener {
+//                //text.setText(getText(etName))
+//
+//            }
+//            Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
+//        }
 
 
 
