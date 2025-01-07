@@ -36,7 +36,6 @@
             android:background="@color/white"
             android:textSize="60dp"
             android:textAlignment="center" />
-
     </LinearLayout>
 
     <LinearLayout
