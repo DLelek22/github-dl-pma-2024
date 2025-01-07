@@ -3,6 +3,8 @@ package com.example.myapp017asemestralniprojekt
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: NoteHubDatabase
     private var isNameAscending = true // Pro sledování stavu řazení podle názvu
     private var currentCategory: String = "Vše" // Aktuálně vybraná kategorie
+    private var currentSearchText: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 //            "notehub_database"
 //        ).build()
 
-
+        setupFilterEditText()
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setBackgroundDrawable(ColorDrawable(Color.parseColor("#6200EE")))
@@ -136,6 +140,13 @@ class MainActivity : AppCompatActivity() {
                     database.noteDao().getNotesByCategoryId(category.id).first()
                 } else {
                     emptyList()
+                }
+            }
+
+            // Filter notes based on the text entered in EditText
+            if (currentSearchText.isNotEmpty()) {
+                notes = notes.filter { note ->
+                    note.title?.contains(currentSearchText, ignoreCase = true) == true
                 }
             }
 
@@ -346,5 +357,28 @@ class MainActivity : AppCompatActivity() {
             loadNotes()
         }
     }
+
+    private fun setupFilterEditText() {
+        // Reference to the EditText
+        val etFind = binding.etFind
+
+        // Add a TextWatcher to listen for text changes
+        etFind.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No action needed here
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Update the search text and reload notes
+                currentSearchText = s.toString()
+                loadNotes() // Reload notes with the updated search text
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // No action needed here
+            }
+        })
+    }
+
 }
 

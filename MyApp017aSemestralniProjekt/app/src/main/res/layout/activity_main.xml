@@ -10,36 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:padding="16dp"
         android:background="@color/ActionBar"
         android:layout_alignParentTop="true">
 
-        <!-- Spinner pro filtrování podle kategorie -->
+        <EditText
+            android:id="@+id/etFind"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:textSize="18sp"
+            android:hint="Search here"
+            android:layout_alignParentTop="true" />
+
+        <!-- Spinner for filtering by category -->
         <Spinner
             android:id="@+id/spinnerFilterCategory"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
 
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="13dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/custom_spinner_background"
             android:popupBackground="@color/white"
             android:textColor="@color/black"
-            android:layout_toStartOf="@+id/btnSortByName"/>
+            android:layout_below="@id/etFind"
+            android:layout_toStartOf="@+id/btnSortByName" />
 
-        <!-- Tlačítko pro řazení podle názvu -->
+        <!-- Button for sorting by name -->
         <Button
             android:id="@+id/btnSortByName"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
+
             android:backgroundTint="@color/primaryColor"
-            android:layout_marginTop="10dp"
-            android:textSize="18dp"
-            android:text="Řadit podle názvu" />
+            android:layout_marginTop="7dp"
+            android:textSize="18sp"
+            android:text="Sort by Name"
+            android:layout_below="@id/etFind" />
 
     </RelativeLayout>
 
