@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5966ff4d-676a-46c7-b3e4-3c8a9ca4e039" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5966ff4d-676a-46c7-b3e4-3c8a9ca4e039" name="Changes" comment="#2 - Jako vlastní apka s Linearnim Layoutem bude vhodná aplikace 3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +50,9 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/David/Documents/PMA-2024/github-dl-pma-2024/MyApp02LinearLayout"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -64,6 +64,19 @@
       <option name="presentableId" value="Default" />
       <updated>1736257844875</updated>
     </task>
+    <task id="LOCAL-00001" summary="#2 - soubory u aplikace zmizely">
+      <option name="closed" value="true" />
+      <created>1736258111214</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736258111214</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="#2 - soubory u aplikace zmizely" />
+    <option name="LAST_COMMIT_MESSAGE" value="#2 - soubory u aplikace zmizely" />
   </component>
 </project>
