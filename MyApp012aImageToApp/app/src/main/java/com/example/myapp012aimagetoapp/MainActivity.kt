@@ -95,6 +95,7 @@ package com.example.myapp012aimagetoapp
 //
 //
 //}
+import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -149,7 +150,8 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, it)
                     Log.d("MainActivity", "Bitmap loaded successfully")
-                    bitmapWithText = addTextToBitmap(bitmap, "Tvůj text")
+                    bitmapWithText = addTextToBitmap(bitmap, binding.editTextInput.text.toString())
+
                     if (bitmapWithText != null) {
                         binding.ivImage.setImageBitmap(bitmapWithText)
                         Log.d("MainActivity", "Text added to image")
@@ -198,22 +200,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveBitmapToGallery(bitmap: Bitmap, title: String) {
-        try {
-            val filename = "$title.jpg"
-            val file = File(Environment.getExternalStorageDirectory().absolutePath, filename)
-            val outputStream: OutputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            outputStream.flush()
-            outputStream.close()
-            MediaStore.Images.Media.insertImage(contentResolver, file.absolutePath, file.name, file.name)
+//    private fun saveBitmapToGallery(bitmap: Bitmap, title: String) {
+//        try {
+//            val filename = "$title.jpg"
+//            val file = File(Environment.getExternalStorageDirectory().absolutePath, filename)
+//            val outputStream: OutputStream = FileOutputStream(file)
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//            outputStream.flush()
+//            outputStream.close()
+//            MediaStore.Images.Media.insertImage(contentResolver, file.absolutePath, file.name, file.name)
+//            Log.d("MainActivity", "Image saved to gallery")
+//            Toast.makeText(this, "Obrázek uložen do galerie", Toast.LENGTH_SHORT).show()
+//        } catch (e: Exception) {
+//            Log.e("MainActivity", "Error saving image to gallery", e)
+//            Toast.makeText(this, "Chyba při ukládání obrázku do galerie", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+private fun saveBitmapToGallery(bitmap: Bitmap, title: String) {
+    try {
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "$title.jpg")
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MyAppImages")
+        }
+
+        val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        uri?.let {
+            val outputStream = contentResolver.openOutputStream(it)
+            if (outputStream != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            }
+            outputStream?.flush()
+            outputStream?.close()
             Log.d("MainActivity", "Image saved to gallery")
             Toast.makeText(this, "Obrázek uložen do galerie", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Error saving image to gallery", e)
+        } ?: run {
+            Log.e("MainActivity", "Failed to create URI")
             Toast.makeText(this, "Chyba při ukládání obrázku do galerie", Toast.LENGTH_SHORT).show()
         }
+    } catch (e: Exception) {
+        Log.e("MainActivity", "Error saving image to gallery", e)
+        Toast.makeText(this, "Chyba při ukládání obrázku do galerie", Toast.LENGTH_SHORT).show()
     }
+}
+
+
 }
 
 
