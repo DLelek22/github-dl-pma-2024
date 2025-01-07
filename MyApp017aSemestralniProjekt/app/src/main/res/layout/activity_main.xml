@@ -20,7 +20,7 @@
             android:layout_height="40dp"
             android:background="@color/white"
             android:textSize="18sp"
-            android:hint="Search here"
+            android:hint="Vyhledat"
             android:layout_alignParentTop="true" />
 
         <!-- Spinner for filtering by category -->
@@ -47,7 +47,7 @@
             android:backgroundTint="@color/primaryColor"
             android:layout_marginTop="7dp"
             android:textSize="18sp"
-            android:text="Sort by Name"
+            android:text="Třídit podle názvu"
             android:layout_below="@id/etFind" />
 
     </RelativeLayout>
