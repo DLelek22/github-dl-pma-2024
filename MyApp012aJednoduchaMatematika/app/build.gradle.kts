@@ -1,14 +1,14 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = "com.example.myapp010adatastore"
+    namespace = "com.example.myapp012ajednoduchamatematika"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.myapp010adatastore"
+        applicationId = "com.example.myapp012ajednoduchamatematika"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -33,14 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    // Add the DataStore Preferences dependency
-    implementation(libs.androidx.datastore.preferences)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
